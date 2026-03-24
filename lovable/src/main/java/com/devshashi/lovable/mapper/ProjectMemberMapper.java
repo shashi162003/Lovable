@@ -14,7 +14,7 @@ public interface ProjectMemberMapper {
     MemberResponse toProjectMemberResponseFromOwner(User owner);
 
     @Mapping(source = "user.id", target = "userId")
-    @Mapping(source = "user.email", target = "email")
+    @Mapping(source = "user.username", target = "username")
     @Mapping(source = "user.name", target = "name")
     MemberResponse toProjectMemberResponseFromMember(ProjectMember member);
 }
