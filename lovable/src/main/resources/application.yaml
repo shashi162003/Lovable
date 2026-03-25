@@ -19,3 +19,12 @@ spring:
 
 jwt:
   secret-key: your-very-long-super-secret-jwt-secret-key
+
+stripe:
+  api:
+    secret: sk_test_51RfgytFan6Z9t5aGmIRPLPPGjBResY2jdP32xCL6tcijnGfdXp1tUgb8m5WzrrgJ9ZiutKAsvCR2EithBL5KwV8Q00O3jKGv0v
+  webhook:
+    secret: whsec_64ac8823f5f305ff1b9612caf8d575671591048ac9bcfc1cf0d0336aeb0cd1e2
+
+client:
+  url: http://localhost:8080
