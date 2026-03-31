@@ -33,7 +33,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final PlanRepository planRepository;
     private final ProjectMemberRepository projectMemberRepository;
 
-    private final Integer FREE_TIER_PROJECTS_ALLOWED = 1;
+    private final Integer FREE_TIER_PROJECTS_ALLOWED = 100;
 
     @Override
     public SubscriptionResponse getCurrentSubscription() {

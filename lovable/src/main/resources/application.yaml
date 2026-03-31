@@ -3,9 +3,9 @@ spring:
     name: lovable
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/Lovable
-    username: postgres
-    password: Shashi12@2Gupta
+    url: jdbc:postgresql://localhost:9010/pgvector-test
+    username: user
+    password: password
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -19,11 +19,15 @@ spring:
 
   ai:
     openai:
-      api-key: ${OPENAI_API_KEY}
-      base-url: https://openrouter.ai/api
+      api-key:
       chat:
         options:
-          model: qwen/qwen3-coder:free
+          model: gpt-4o-mini
+          temperature: 0.0
+    ollama:
+      chat:
+        options:
+          model: qwen3:4b
           temperature: 0.0
 
 jwt:
@@ -37,3 +41,14 @@ stripe:
 
 client:
   url: http://localhost:8080
+
+logging:
+  level:
+    org.springframework.ai:
+      chat.client: DEBUG
+
+minio:
+  url: http://localhost:9000
+  access-key: minioadmin
+  secret-key: minioadmin123
+  project-bucket: projects
