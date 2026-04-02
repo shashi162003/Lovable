@@ -27,7 +27,7 @@ public class ProjectTemplateServiceImpl implements ProjectTemplateService {
 
     private static final String TEMPLATE_BUCKET = "starter-projects";
     private static final String TARGET_BUCKET = "projects";
-    private static final String TEMPLATE_NAME = "react-vite-tailwind-daisyui-starter-main";
+    private static final String TEMPLATE_NAME = "react-vite-tailwind-daisyui-starter";
 
     @Override
     public void initializeProjectFromTemplate(Long projectId) {
