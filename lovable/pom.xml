@@ -121,6 +121,11 @@
       		<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
       		<version>3.0.2</version>
     	</dependency>
+		<dependency>
+			<groupId>io.fabric8</groupId>
+			<artifactId>kubernetes-client</artifactId>
+			<version>7.3.1</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
