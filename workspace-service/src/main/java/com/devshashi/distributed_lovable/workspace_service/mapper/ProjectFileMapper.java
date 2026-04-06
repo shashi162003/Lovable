@@ -1,6 +1,6 @@
 package com.devshashi.distributed_lovable.workspace_service.mapper;
 
-import com.devshashi.distributed_lovable.workspace_service.dto.project.FileNode;
+import com.devshashi.distributed_lovable.common_lib.dto.FileNode;
 import com.devshashi.distributed_lovable.workspace_service.entity.ProjectFile;
 import org.mapstruct.Mapper;
 

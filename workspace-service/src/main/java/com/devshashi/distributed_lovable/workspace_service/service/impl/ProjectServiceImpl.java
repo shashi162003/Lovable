@@ -1,6 +1,7 @@
 package com.devshashi.distributed_lovable.workspace_service.service.impl;
 
 import com.devshashi.distributed_lovable.common_lib.dto.PlanDTO;
+import com.devshashi.distributed_lovable.common_lib.enums.ProjectPermission;
 import com.devshashi.distributed_lovable.common_lib.enums.ProjectRole;
 import com.devshashi.distributed_lovable.common_lib.error.BadRequestException;
 import com.devshashi.distributed_lovable.common_lib.error.ResourceNotFoundException;
@@ -15,6 +16,7 @@ import com.devshashi.distributed_lovable.workspace_service.entity.ProjectMemberI
 import com.devshashi.distributed_lovable.workspace_service.mapper.ProjectMapper;
 import com.devshashi.distributed_lovable.workspace_service.repository.ProjectMemberRepository;
 import com.devshashi.distributed_lovable.workspace_service.repository.ProjectRepository;
+import com.devshashi.distributed_lovable.workspace_service.security.SecurityExpressions;
 import com.devshashi.distributed_lovable.workspace_service.service.ProjectService;
 import com.devshashi.distributed_lovable.workspace_service.service.ProjectTemplateService;
 import jakarta.transaction.Transactional;
@@ -36,6 +38,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final AuthUtil authUtil;
     private final ProjectTemplateService projectTemplateService;
     private final AccountClient accountClient;
+    private final SecurityExpressions securityExpressions;
 
     @Override
     public ProjectResponse createProject(ProjectRequest request) {
@@ -101,6 +104,11 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = getAccessibleProjectById(projectId, userId);
         project.setDeletedAt(Instant.now());
         projectRepository.save(project);
+    }
+
+    @Override
+    public boolean hasPermission(Long projectId, ProjectPermission permission) {
+        return securityExpressions.hasPermission(projectId, permission);
     }
 
     /// INTERNAL FUNCTIONS
