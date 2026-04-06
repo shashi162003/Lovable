@@ -1,6 +1,6 @@
-package com.devshashi.distributed_lovable.account_service.dto.subscription;
+package com.devshashi.distributed_lovable.common_lib.dto;
 
-public record PlanResponse(
+public record PlanDTO(
         Long id,
         String name,
         Integer maxProjects,
