@@ -13,6 +13,7 @@ import com.devshashi.distributed_lovable.workspace_service.service.ProjectFileSe
 import io.minio.GetObjectArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +39,7 @@ public class ProjectFileServiceImpl implements ProjectFileService {
     @Value("${minio.project-bucket}")
     private String projectBucket;
 
-    private static final String BUCKET_NAME = "projects";
+//    private static final String BUCKET_NAME = "projects";
 
     @Override
     public FileTreeDTO getFileTree(Long projectId) {
@@ -54,7 +55,7 @@ public class ProjectFileServiceImpl implements ProjectFileService {
         try{
             InputStream is = minioClient.getObject(
                     GetObjectArgs.builder()
-                            .bucket(BUCKET_NAME)
+                            .bucket(projectBucket)
                             .object(objectName)
                             .build()
             );
@@ -66,6 +67,7 @@ public class ProjectFileServiceImpl implements ProjectFileService {
     }
 
     @Override
+    @Transactional
     public void saveFile(Long projectId, String path, String content) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new ResourceNotFoundException("Project", projectId.toString()));

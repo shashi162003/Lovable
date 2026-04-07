@@ -1,5 +1,6 @@
 package com.devshashi.distributed_lovable.intelligence_service.llm;
 
+import com.devshashi.distributed_lovable.common_lib.enums.ChatEventStatus;
 import com.devshashi.distributed_lovable.common_lib.enums.ChatEventType;
 import com.devshashi.distributed_lovable.intelligence_service.entity.ChatEvent;
 import com.devshashi.distributed_lovable.intelligence_service.entity.ChatMessage;
@@ -49,6 +50,7 @@ public class LlmResponseParser {
             Map<String, String> attrMap = extractAttributes(attributes);
 
             ChatEvent.ChatEventBuilder builder = ChatEvent.builder()
+                    .status(ChatEventStatus.CONFIRMED)
                     .chatMessage(parentMessage)
                     .content(content)
                     .sequenceOrder(orderCounter++);
@@ -57,6 +59,7 @@ public class LlmResponseParser {
                 case "message" -> builder.type(ChatEventType.MESSAGE);
                 case "file" -> {
                     builder.type(ChatEventType.FILE_EDIT);
+                    builder.status(ChatEventStatus.PENDING);
                     builder.filePath(attrMap.get("path"));
                 }
                 case "tool" -> {

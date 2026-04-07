@@ -15,6 +15,7 @@ public class CodeGenerationTools {
 
     private final Long projectId;
     private final WorkspaceClient workspaceClient;
+    private final String bearerToken;
 
     @Tool(
             name = "read_files",
@@ -28,11 +29,16 @@ public class CodeGenerationTools {
 
             log.info("Requested file: {}", cleanPath);
 
-            String content = workspaceClient.getFileContent(projectId, cleanPath);
-            result.add(String.format(
-                    "--- START OF FILE: %s ---\n%s\n--- END OF FILE ---",
-                    cleanPath, content
-            ));
+            try{
+                String content = workspaceClient.getFileContent(projectId, cleanPath, bearerToken);
+                result.add(String.format(
+                        "--- START OF FILE: %s ---\n%s\n--- END OF FILE ---",
+                        cleanPath, content
+                ));
+            } catch (Exception e){
+                log.error("Failed to fetch file {} for project {}: {}", cleanPath, projectId, e.getMessage());
+                result.add(String.format("--- ERROR: Could not read file: %s (reason: %s) ---", cleanPath, e.getMessage()));
+            }
         }
 
         return result;
