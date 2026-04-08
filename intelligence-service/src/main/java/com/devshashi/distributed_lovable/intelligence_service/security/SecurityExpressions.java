@@ -3,8 +3,10 @@ package com.devshashi.distributed_lovable.intelligence_service.security;
 import com.devshashi.distributed_lovable.common_lib.enums.ProjectPermission;
 import com.devshashi.distributed_lovable.common_lib.security.AuthUtil;
 import com.devshashi.distributed_lovable.intelligence_service.client.WorkspaceClient;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.stereotype.Component;
 
 @Component("security")
@@ -16,7 +18,15 @@ public class SecurityExpressions {
     private final WorkspaceClient workspaceClient;
 
     private Boolean hasPermission(Long projectId, ProjectPermission projectPermission){
-        return workspaceClient.checkPermission(projectId, projectPermission);
+        try{
+            return workspaceClient.checkPermission(projectId, projectPermission);
+        } catch (FeignException.Unauthorized e){
+            log.warn("Token expired or invalid during permission check for project: {}", projectId);
+            throw new CredentialsExpiredException("JWT token is expired or invalid");
+        } catch (FeignException e){
+            log.error("Workspace-service failed during permission check: {}", e.getMessage());
+            return false;
+        }
     }
 
     public Boolean canViewProject(Long projectId){

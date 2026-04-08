@@ -4,9 +4,40 @@ spring:
 
   cloud:
     config.server.git:
-      uri: https://github.com/shashi162003/lovable-config-server
+      uri: https://github.com/shashi162003/lovable-config-server.git
       username: shashi162003
-      password: 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
+      password: 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
       default-label: main
 
 server.port: 8888
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  health:
+    config:
+      enabled: false
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: k8s
+
+  cloud:
+    discovery:
+      enabled: false
+    config.server.git:
+      uri: https://github.com/shashi162003/lovable-config-server.git
+      username: ${GIT_USERNAME}
+      password: ${GIT_PASSWORD}
+      default-label: main
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
