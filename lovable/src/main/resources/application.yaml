@@ -19,7 +19,7 @@ spring:
 
   ai:
     openai:
-      api-key:
+      api-key: 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
       chat:
         options:
           stream-usage: true
