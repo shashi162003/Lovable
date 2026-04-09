@@ -6,6 +6,7 @@
 |---|---|
 | **Backend (this repo)** | Spring Boot monolith — AI generation, file storage, K8s deployments, billing |
 | **Frontend** | [shashi162003/project-companion](https://github.com/shashi162003/project-companion) — React + TypeScript client |
+| **Walkthrough Video** | [https://drive.google.com/file/d/1uNTxHjOb0h0J0qZrkhoLZaVnu6IrYid-/view?usp=sharing](https://drive.google.com/file/d/1uNTxHjOb0h0J0qZrkhoLZaVnu6IrYid-/view?usp=sharing)
 
 ---
 
